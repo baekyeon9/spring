@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -22,22 +23,23 @@ class MemberServiceIntegrationTest {
     @Autowired MemberRepository memberRepository;
 
     @Test
-    void 회원가입() {
+    void 회원가입() throws Exception{
         // given
         Member member = new Member();
-        member.setName("spring");
+        member.setName("hello");
 
         // when
         Long saveId = memberService.join(member);
 
         // then
         Member findMember = memberService.findOne(saveId).get();
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        assertEquals(member.getName(), findMember.getName());
+        //        assertThat(member.getName()).isEqualTo(findMember.getName());
 
     }
 
     @Test
-    public void 중복_회원_예외() {
+    public void 중복_회원_예외() throws Exception{
 
         // given
         Member member1 = new Member();
